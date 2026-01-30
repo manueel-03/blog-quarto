@@ -1,0 +1,107 @@
+[
+  {
+    "objectID": "posts/regresion_lineal_multiple/index.html",
+    "href": "posts/regresion_lineal_multiple/index.html",
+    "title": "Regresión lineal múltiple",
+    "section": "",
+    "text": "1.Introducción\nPara ver los distintos enfoques de la regresión lineal, se emplea el conjunto de datos mtcars, incluido por defecto en R. Este conjunto de datos recoge información técnica sobre distintos modelos de automóviles.\nEn particular, se analizará el consumo de combustible de los vehículos, y su relación con distintas características del automóvil, en este caso, el número de cilindros. Estas variables permiten ilustrar de forma clara la aplicación de modelos de regresión y la comparación entre distintas especificaciones.\n\n\n2. Datos\n\nrm(list = ls())\n\nsuma &lt;- function(x) {\n  return(sum(x, na.rm = TRUE))\n}\n\ndata(mtcars)\ndatos &lt;- mtcars\n\nconsumo &lt;- datos$mpg\n\ncilindros &lt;- datos$cyl\n\nconsumo_medio &lt;- sort(tapply(consumo, cilindros, mean))\nconsumo_medio\n\n       8        6        4 \n15.10000 19.74286 26.66364 \n\nplot(names(consumo_medio), consumo_medio,\n     type = \"b\",\n     col = \"blue\",\n     lwd = 3,\n     xlab = \"Número de cilindros\",\n     ylab = \"Consumo medio (mpg)\",\n     main = \"Consumo medio de combustible según el número de cilindros\")\n\n\n\n\n\n\n\n\nLa representación gráfica del consumo medio de combustible en función del número de cilindros muestra una relación claramente decreciente. A medida que aumenta el número de cilindros del vehículo, el consumo medio disminuye. Esto nos lleva a pensar que existe una relación negativa entre ambas variables.\nAhora se plantea un modelo de regresión lineal simple que permite analizar la relación entre el consumo medio de combustible y el número de cilindros del vehículo.\n\nreg1 &lt;- lm(consumo_medio ~ as.numeric(names(consumo_medio)))\n\nsummary(reg1)\n\n\nCall:\nlm(formula = consumo_medio ~ as.numeric(names(consumo_medio)))\n\nResiduals:\n      8       6       4 \n 0.3797 -0.7593  0.3797 \n\nCoefficients:\n                                 Estimate Std. Error t value Pr(&gt;|t|)  \n(Intercept)                       37.8476     2.0445  18.512   0.0344 *\nas.numeric(names(consumo_medio))  -2.8909     0.3288  -8.793   0.0721 .\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.93 on 1 degrees of freedom\nMultiple R-squared:  0.9872,    Adjusted R-squared:  0.9745 \nF-statistic: 77.31 on 1 and 1 DF,  p-value: 0.07209\n\n\nEl modelo de regresión lineal simple estimado presenta una pendiente negativa, lo que indica que el consumo medio de combustible disminuye a medida que aumenta el número de cilindros del vehículo. En concreto, el modelo sugiere que un incremento de un cilindro se asocia con una reducción aproximada de 2.9 unidades en el consumo medio.\nEl coeficiente de determinación es elevado, lo que indica un buen ajuste del modelo a los datos agregados.\nEl modelo de regresión lineal simple permite analizar la relación entre el consumo de combustible y una única variable explicativa. Sin embargo, en muchos contextos resulta más adecuado considerar simultáneamente varios factores que pueden influir sobre la variable de interés.\nAhora planteamos un modelo de regresión lineal múltiple en el que el consumo de combustible se explica en función del número de cilindros y del peso del vehículo.\n\nreg2 &lt;- lm(mpg ~ cyl + wt, data = mtcars)\n\nsummary(reg2)\n\n\nCall:\nlm(formula = mpg ~ cyl + wt, data = mtcars)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-4.2893 -1.5512 -0.4684  1.5743  6.1004 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  39.6863     1.7150  23.141  &lt; 2e-16 ***\ncyl          -1.5078     0.4147  -3.636 0.001064 ** \nwt           -3.1910     0.7569  -4.216 0.000222 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 2.568 on 29 degrees of freedom\nMultiple R-squared:  0.8302,    Adjusted R-squared:  0.8185 \nF-statistic: 70.91 on 2 and 29 DF,  p-value: 6.809e-12\n\n\nEl modelo de regresión lineal múltiple muestra que tanto el número de cilindros como el peso del vehículo influyen de forma significativa sobre el consumo de combustible. Manteniendo constante el peso del vehículo, un aumento en el número de cilindros se asocia con una reducción de 1.5 unindades en el consumo.\nPor otraparte, manteniendo constante el número de cilindros, un incremento en el peso del vehículo se asocia con una disminución aproximada de 3.2 unidades. Ambos coeficientes resultan estadísticamente significativos.\nEl coeficiente de determinación indica que el modelo explica alrededor del 83 % de la variabilidad observada en el consumo de combustible, lo que sugiere un buen ajuste del modelo a los datos.\nLa regresión lineal múltiple permite analizar de forma conjunta el efecto de distintas variables explicativas sobre una variable de interés, proporcionando una visión más completa del fenómeno analizado.\nEn este ejemplo se ha mostrado cómo el consumo de combustible de los vehículos depende de características como el número de cilindros y el peso, utilizando modelos de regresión lineal estimados en R y siguiendo el enfoque desarrollado en clase."
+  },
+  {
+    "objectID": "posts/estadistica_descriptiva/index.html",
+    "href": "posts/estadistica_descriptiva/index.html",
+    "title": "Estadística descriptiva",
+    "section": "",
+    "text": "1.Introducción\nLa estadística descriptiva tiene como objetivo resumir y describir las características principales de un conjunto de datos, permitiendo obtener una primera visión de su comportamiento mediante medidas numéricas y representaciones gráficas.\nEn esta entrada se muestran los principales conceptos de la estadística descriptiva utilizando el lenguaje de R, a partir de un conjunto de datos incluido por defecto en el propio software.\n\n\n2. Datos\nPara evitar problemas técnicos y centrarnos en los conceptos estadísticos, se utilizará el conjunto de datos mtcars, que contiene información sobre distintos modelos de automóviles.\nNos centraremos en la variable mpg, que representa el consumo de combustible.\nEl objetivo es describir el comportamiento de una variable numérica a través de medidas de posición, dispersión y forma, así como mediante representaciones gráficas.\n\nvarianza &lt;- function(x){\n  n &lt;- length(x)\n  v &lt;- ((n - 1) / n) * var(x)\n  return(v)\n}\n\ndata(mtcars)\n\nvariable &lt;- mtcars$mpg\n\n\nMedidas de posición\n\nmedia &lt;- mean(variable)\nmedia\n\n[1] 20.09062\n\nmediana &lt;- median(variable)\nmediana\n\n[1] 19.2\n\nquantile(variable)\n\n    0%    25%    50%    75%   100% \n10.400 15.425 19.200 22.800 33.900 \n\nquantile(variable, probs = c(0.05, 0.95))\n\n    5%    95% \n11.995 31.300 \n\n\nEstas medidas permiten identificar el valor central y la distribución general del consumo de combustible de los vehículos analizados.\n\n\nMedidas de dispersión\n\nvar(variable)\n\n[1] 36.3241\n\nvarianza(variable)\n\n[1] 35.18897\n\ndesv_tip &lt;- sd(variable)\ndesv_tip\n\n[1] 6.026948\n\nCV &lt;- desv_tip / abs(media)\nCV\n\n[1] 0.2999881\n\n\nEl coeficiente de variación permite analizar la dispersión relativa de la variable.\n\n\nSimetría\n\nlibrary(moments)\n\nskewness(variable)\n\n[1] 0.6404399\n\n\nEl coeficiente de asimetría obtenido es positivo, lo que indica que la distribución del consumo de combustible presenta una asimetría a la derecha. Esto implica la existencia de algunos vehículos con valores elevados de consumo que alargan la cola derecha de la distribución.\n\n\nCurtósis\n\nkurtosis(variable) - 3\n\n[1] -0.2005332\n\n\nEl coeficiente de curtosis obtenido es negativo, lo que indica que la distribución del consumo de combustible presenta una forma platicúrtica, es decir, es menos apuntada que una distribución normal y muestra una mayor dispersión alrededor de la media.\n\n\nGráficos\nHistograma\n\nhist(variable,\n     col = \"lightblue\",\n     main = \"Histograma del consumo (mpg)\",\n     xlab = \"Millas por galón\")\n\n\n\n\n\n\n\n\nEl histograma permite ver la distribución del consumo de combustible de los vehículos analizados. Se observa que hay una mayor concentración en valores intermedios, junto con una cola derecha algo más larga.\nDiagrama de caja\n\nboxplot(variable,\n        col = \"lightgreen\",\n        main = \"Diagrama de caja del consumo (mpg)\")\n\n\n\n\n\n\n\n\nEl diagrama de caja resume la información sobre posición y dispersión del consumo de combustible, mostrando la mediana, los cuartiles y posibles valores atípicos.\nLas representaciones gráficas complementan a las medidas numéricas, facilitando una comprensión más intuitiva del comportamiento de la variable analizada y reforzando las conclusiones."
+  },
+  {
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "Currículum Vitae",
+    "section": "",
+    "text": "Nombre: Jose Luis Heredia Maya\nLugar de residencia: Órgiva, Granada\nCorreo electrónico: herediamaya@correo.ugr.es"
+  },
+  {
+    "objectID": "cv.html#datos-personales",
+    "href": "cv.html#datos-personales",
+    "title": "Currículum Vitae",
+    "section": "",
+    "text": "Nombre: Jose Luis Heredia Maya\nLugar de residencia: Órgiva, Granada\nCorreo electrónico: herediamaya@correo.ugr.es"
+  },
+  {
+    "objectID": "cv.html#perfil-profesional",
+    "href": "cv.html#perfil-profesional",
+    "title": "Currículum Vitae",
+    "section": "Perfil profesional",
+    "text": "Perfil profesional\nGraduado en Economía por la Universidad de Granada (curso 2024/2025), con interés en el análisis cuantitativo y la gestión empresarial y administrativa. Motivado por ampliar mis conocimientos en áreas de análisis apoyadas en instrumentos actuales, especialmente aquellos relacionados con el uso de la tecnología y las herramientas estadísticas."
+  },
+  {
+    "objectID": "cv.html#formación-académica",
+    "href": "cv.html#formación-académica",
+    "title": "Currículum Vitae",
+    "section": "Formación académica",
+    "text": "Formación académica\n\nGrado en Economía – Universidad de Granada (2021–2025)\nBachillerato de Ciencias Sociales – IES Alpujarra (2019–2021)"
+  },
+  {
+    "objectID": "cv.html#experiencia-profesional",
+    "href": "cv.html#experiencia-profesional",
+    "title": "Currículum Vitae",
+    "section": "Experiencia profesional",
+    "text": "Experiencia profesional\nMesón Casa Santiago – Órgiva, Granada\nPuesto: Camarero\n\nAtención al cliente\n\nOrganización del trabajo\n\nPlanificación de eventos y catering\n\nToma de decisiones en situaciones de presión"
+  },
+  {
+    "objectID": "cv.html#competencias-técnicas",
+    "href": "cv.html#competencias-técnicas",
+    "title": "Currículum Vitae",
+    "section": "Competencias técnicas",
+    "text": "Competencias técnicas\n\nAnálisis de datos\n\nEstadística aplicada\n\nExcel (nivel medio-avanzado)\n\nModelos cuantitativos\n\nUso de bases de datos\n\nManejo de instrumentos estadísticos (Gretl)"
+  },
+  {
+    "objectID": "cv.html#competencias-personales",
+    "href": "cv.html#competencias-personales",
+    "title": "Currículum Vitae",
+    "section": "Competencias personales",
+    "text": "Competencias personales\n\nPensamiento analítico\n\nResolución de problemas\n\nOrganización y gestión del tiempo\n\nTrabajo en equipo\n\nAdaptabilidad y responsabilidad\n\nCapacidad de aprendizaje continuo"
+  },
+  {
+    "objectID": "cv.html#idiomas",
+    "href": "cv.html#idiomas",
+    "title": "Currículum Vitae",
+    "section": "Idiomas",
+    "text": "Idiomas\n\nInglés: Nivel B1 (British Council – Aptis ESOL)"
+  },
+  {
+    "objectID": "cv.html#conocimientos-informáticos",
+    "href": "cv.html#conocimientos-informáticos",
+    "title": "Currículum Vitae",
+    "section": "Conocimientos informáticos",
+    "text": "Conocimientos informáticos\n\nExcel (medio-avanzado)\n\nWord\n\nPowerPoint\n\nGretl (medio)\nRstudio (medio)"
+  },
+  {
+    "objectID": "cv.html#formación-complementaria",
+    "href": "cv.html#formación-complementaria",
+    "title": "Currículum Vitae",
+    "section": "Formación complementaria",
+    "text": "Formación complementaria\n\nJornadas de emprendimiento – Universidad de Granada (2023)\n\nParticipación en simulador PRAXIS MMT"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Sobre mí",
+    "section": "",
+    "text": "Soy José Luis Heredia Maya, graduado en Economía por la Universidad de Granada y estudiante de máster (Técnicas Cuantitativas para la Gestión Empresarial) de la UGR\n\n¿Porqúe ha sido creado este blog?\nEste blog ha sido creado como parte de la asignatura Herramientas Informáticas para la investigación y tiene como objetivo servir como espacio de aprendizaje en el ámbito de la estadística aplicada mediante el uso del lenguaje R y la herramienta Quarto.\n\n\nEntradas\nA lo largo del blog se publicarán distintas entradas relacionadas con:\n- Estadística descriptiva\n- Inferencia estadística\n- Modelos de regresión lineal múltiple"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Blog quarto",
+    "section": "",
+    "text": "Estadística descriptiva\n\n\n\nEstadística\n\nDescriptiva\n\nR\n\n\n\nIntroducción a la estadística descriptiva mediante ejemplos prácticos en R\n\n\n\nJosé Luis Heredia Maya\n\n\nJan 30, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nInferencia estadística\n\n\n\nEstadística\n\nInferencia\n\nR\n\n\n\nIntroducción a la inferencia estadística mediante ejemplos prácticos en R\n\n\n\nJosé Luis Heredia Maya\n\n\nJan 30, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nRegresión lineal múltiple\n\n\n\nEstadística\n\nRegresión\n\nR\n\n\n\nAnálisis de la relación entre varias variables explicativas mediante regresión lineal múltiple en R\n\n\n\nJosé Luis Heredia Maya\n\n\nJan 30, 2026\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/inferencia_estadistica/index.html",
+    "href": "posts/inferencia_estadistica/index.html",
+    "title": "Inferencia estadística",
+    "section": "",
+    "text": "1.Introducción\nLa inferencia estadística tiene como objetivo extraer conclusiones sobre una población a partir de la información proporcionada por una muestra. A diferencia de la estadística descriptiva, que se limita a resumir los datos observados, la inferencia incorpora la incertidumbre asociada al muestreo.\nMediante técnicas de estimación y contraste de hipótesis es posible aproximar el valor de parámetros poblacionales desconocidos y evaluar afirmaciones sobre los mismos con un determinado nivel de confianza.\nEn esta entrada se introducen los conceptos básicos de la inferencia estadística utilizando el lenguaje de R.\n\n\n2. Inferencia para una población\nPara este caso se utilizará el conjunto de datos mtcars, que contiene información sobre distintos modelos de automóviles.\nNos centraremos en la variable mpg, que representa el consumo de combustible.\nEn el contexto de la inferencia estadística para una población, se considera que se dispone de una muestra aleatoria extraída de una población con un parámetro desconocido. A partir de dicha muestra se utilizan estimadores para aproximar el valor del parámetro poblacional.\nEn este caso, se analizará la media poblacional del consumo de combustible, utilizando la media muestral como estimador.\n\ndata(mtcars)\n\nvariable &lt;- mtcars$mpg\n\nn &lt;- length(variable)\nn\n\n[1] 32\n\nmedia_muestral &lt;- mean(variable)\nmedia_muestral\n\n[1] 20.09062\n\ndesv_tip &lt;- sd(variable)\ndesv_tip\n\n[1] 6.026948\n\n\nLa muestra analizada está formada por 32 observaciones. La media muestral del consumo de combustible es de 20.09 , mientras que la desviación típica muestral es de 6.03.\nEstos valores resumen la información contenida en la muestra y nos prepara para realizar inferencias sobre la media poblacional del consumo de combustible.\n\nIntervalo de confianza para la media poblacional\n\nIC_media &lt;- t.test(variable, conf.level = 0.95)\nIC_media\n\n\n    One Sample t-test\n\ndata:  variable\nt = 18.857, df = 31, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 0\n95 percent confidence interval:\n 17.91768 22.26357\nsample estimates:\nmean of x \n 20.09062 \n\n\nEl intervalo de confianza al 95 % para la media poblacional del consumo de combustible está comprendido entre 17.92 y 22.26, esto significa que, con un nivel de confianza del 95 %, se puede afirmar que la media poblacional del consumo de combustible se encuentra dentro de dicho intervalo.\n\n\nContraste de hipótesis\nPara contrastar hipótesis sobre la media poblacional del consumo de combustible, se plantea el siguiente contraste bilateral:\n\nHipótesis nula (H0): la media poblacional del consumo de combustible es igual a 0.\nHipótesis alternativa (H1): la media poblacional del consumo de combustible es distinta de 0.\n\nEl contraste se realiza utilizando un nivel de significación del 5 %.\n\ncontraste &lt;- t.test(variable)\ncontraste\n\n\n    One Sample t-test\n\ndata:  variable\nt = 18.857, df = 31, p-value &lt; 2.2e-16\nalternative hypothesis: true mean is not equal to 0\n95 percent confidence interval:\n 17.91768 22.26357\nsample estimates:\nmean of x \n 20.09062 \n\n\nEl p-valor obtenido es prácticamente nulo y claramente inferior al nivel de significación del 5 %. Por tanto, se rechaza la hipótesis nula y se dice que existe evidencia estadística suficiente para afirmar que la media poblacional del consumo de combustible es distinta de 0.\n\n\nComparación de dos poblaciones\nEn muchas situaciones resulta interesante comparar el comportamiento de una variable entre dos poblaciones distintas. En este caso, se analizará si existen diferencias estadísticamente significativas en el consumo medio de combustible entre vehículos con transmisión automática y transmisión manual.\n\nmpg_auto &lt;- mtcars$mpg[mtcars$am == 0]\nmpg_manual &lt;- mtcars$mpg[mtcars$am == 1]\n\nlength(mpg_auto)\n\n[1] 19\n\nlength(mpg_manual)\n\n[1] 13\n\nmean(mpg_auto)\n\n[1] 17.14737\n\nmean(mpg_manual)\n\n[1] 24.39231\n\n\nLa muestra se divide en 19 vehículos con automáticos y 13 vehículos manuales. La media muestral del consumo de combustible es de 17.15 para los vehículos automáticos y de 24.39 para los vehículos manuales.\nA nivel descriptivo, se observa que los vehículos manuales presentan un consumo medio menor que los vehículos automáticos. No obstante, para determinar si esta diferencia es estadísticamente significativa es necesario realizar un contraste de hipótesis.\n\ncomparacion &lt;- t.test(mpg_auto, mpg_manual, var.equal = FALSE)\ncomparacion\n\n\n    Welch Two Sample t-test\n\ndata:  mpg_auto and mpg_manual\nt = -3.7671, df = 18.332, p-value = 0.001374\nalternative hypothesis: true difference in means is not equal to 0\n95 percent confidence interval:\n -11.280194  -3.209684\nsample estimates:\nmean of x mean of y \n 17.14737  24.39231 \n\n\nEl contraste de medias nos da un p-valor inferior al nivel de significación del 5 %, por lo que se rechaza la hipótesis nula de igualdad de medias.\nEl intervalo de confianza al 95 % para la diferencia de medias se encuentra entre −11.28 y −3.21, lo que indica que el consumo medio de los vehículos manuales son significativamente menores que el de los vehículos automáticos.\nLa inferencia estadística es una herramienta fundamental para extraer conclusiones sobre una población a partir de la información muestral, incorporando la incertidumbre al proceso. En esta entrada se han vistolos principales conceptos de la inferencia para una población, incluyendo los intervalos de confianza y los contrastes de hipótesis."
+  }
+]

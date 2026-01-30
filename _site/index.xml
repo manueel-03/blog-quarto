@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Blog para Herramientas Informáticas</title>
+<link>https://your-website-url.example.com/</link>
+<atom:link href="https://your-website-url.example.com/index.xml" rel="self" type="application/rss+xml"/>
+<description>A blog built with Quarto</description>
+<generator>quarto-1.8.26</generator>
+<lastBuildDate>Thu, 29 Jan 2026 23:00:00 GMT</lastBuildDate>
+<item>
+  <title>Estadística descriptiva</title>
+  <dc:creator>José Luis Heredia Maya</dc:creator>
+  <link>https://your-website-url.example.com/posts/estadistica_descriptiva/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="introducción" class="level3">
+<h3 class="anchored" data-anchor-id="introducción">1.Introducción</h3>
+<p>La estadística descriptiva tiene como objetivo resumir y describir las características principales de un conjunto de datos, permitiendo obtener una primera visión de su comportamiento mediante medidas numéricas y representaciones gráficas.</p>
+<p>En esta entrada se muestran los principales conceptos de la estadística descriptiva utilizando el lenguaje de R, a partir de un conjunto de datos incluido por defecto en el propio software.</p>
+</section>
+<section id="datos" class="level3">
+<h3 class="anchored" data-anchor-id="datos">2. Datos</h3>
+<p>Para evitar problemas técnicos y centrarnos en los conceptos estadísticos, se utilizará el conjunto de datos mtcars, que contiene información sobre distintos modelos de automóviles.</p>
+<p>Nos centraremos en la variable mpg, que representa el consumo de combustible.</p>
+<p>El objetivo es describir el comportamiento de una variable numérica a través de medidas de posición, dispersión y forma, así como mediante representaciones gráficas.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">varianza <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span>(x){</span>
+<span id="cb1-2">  n <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">length</span>(x)</span>
+<span id="cb1-3">  v <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> ((n <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> n) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">var</span>(x)</span>
+<span id="cb1-4">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">return</span>(v)</span>
+<span id="cb1-5">}</span>
+<span id="cb1-6"></span>
+<span id="cb1-7"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">data</span>(mtcars)</span>
+<span id="cb1-8"></span>
+<span id="cb1-9">variable <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> mtcars<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>mpg</span></code></pre></div></div>
+</div>
+<section id="medidas-de-posición" class="level5">
+<h5 class="anchored" data-anchor-id="medidas-de-posición"><em>Medidas de posición</em></h5>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">media <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean</span>(variable)</span>
+<span id="cb2-2">media</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.09062</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1">mediana <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">median</span>(variable)</span>
+<span id="cb4-2">mediana</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 19.2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">quantile</span>(variable)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    0%    25%    50%    75%   100% 
+10.400 15.425 19.200 22.800 33.900 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">quantile</span>(variable, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">probs =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.05</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.95</span>))</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    5%    95% 
+11.995 31.300 </code></pre>
+</div>
+</div>
+<p>Estas medidas permiten identificar el valor central y la distribución general del consumo de combustible de los vehículos analizados.</p>
+</section>
+<section id="medidas-de-dispersión" class="level5">
+<h5 class="anchored" data-anchor-id="medidas-de-dispersión"><em>Medidas de dispersión</em></h5>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">var</span>(variable)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 36.3241</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">varianza</span>(variable)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 35.18897</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1">desv_tip <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sd</span>(variable)</span>
+<span id="cb14-2">desv_tip</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.026948</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1">CV <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> desv_tip <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">abs</span>(media)</span>
+<span id="cb16-2">CV</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2999881</code></pre>
+</div>
+</div>
+<p>El coeficiente de variación permite analizar la dispersión relativa de la variable.</p>
+</section>
+<section id="simetría" class="level5">
+<h5 class="anchored" data-anchor-id="simetría"><em>Simetría</em></h5>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(moments)</span>
+<span id="cb18-2"></span>
+<span id="cb18-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">skewness</span>(variable)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6404399</code></pre>
+</div>
+</div>
+<p>El coeficiente de asimetría obtenido es positivo, lo que indica que la distribución del consumo de combustible presenta una asimetría a la derecha. Esto implica la existencia de algunos vehículos con valores elevados de consumo que alargan la cola derecha de la distribución.</p>
+</section>
+<section id="curtósis" class="level5">
+<h5 class="anchored" data-anchor-id="curtósis"><em>Curtósis</em></h5>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">kurtosis</span>(variable) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span></span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.2005332</code></pre>
+</div>
+</div>
+<p>El coeficiente de curtosis obtenido es negativo, lo que indica que la distribución del consumo de combustible presenta una forma platicúrtica, es decir, es menos apuntada que una distribución normal y muestra una mayor dispersión alrededor de la media.</p>
+</section>
+<section id="gráficos" class="level5">
+<h5 class="anchored" data-anchor-id="gráficos"><em>Gráficos</em></h5>
+<p><em>Histograma</em></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">hist</span>(variable,</span>
+<span id="cb22-2">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">col =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"lightblue"</span>,</span>
+<span id="cb22-3">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">main =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Histograma del consumo (mpg)"</span>,</span>
+<span id="cb22-4">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">xlab =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Millas por galón"</span>)</span></code></pre></div></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://your-website-url.example.com/posts/estadistica_descriptiva/index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>El histograma permite ver la distribución del consumo de combustible de los vehículos analizados. Se observa que hay una mayor concentración en valores intermedios, junto con una cola derecha algo más larga.</p>
+<p><em>Diagrama de caja</em></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">boxplot</span>(variable,</span>
+<span id="cb23-2">        <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">col =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"lightgreen"</span>,</span>
+<span id="cb23-3">        <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">main =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Diagrama de caja del consumo (mpg)"</span>)</span></code></pre></div></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://your-website-url.example.com/posts/estadistica_descriptiva/index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>El diagrama de caja resume la información sobre posición y dispersión del consumo de combustible, mostrando la mediana, los cuartiles y posibles valores atípicos.</p>
+<p>Las representaciones gráficas complementan a las medidas numéricas, facilitando una comprensión más intuitiva del comportamiento de la variable analizada y reforzando las conclusiones.</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>Estadística</category>
+  <category>Descriptiva</category>
+  <category>R</category>
+  <guid>https://your-website-url.example.com/posts/estadistica_descriptiva/</guid>
+  <pubDate>Thu, 29 Jan 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://your-website-url.example.com/posts/estadistica_descriptiva/featured.png" medium="image" type="image/png" height="96" width="144"/>
+</item>
+<item>
+  <title>Inferencia estadística</title>
+  <dc:creator>José Luis Heredia Maya</dc:creator>
+  <link>https://your-website-url.example.com/posts/inferencia_estadistica/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="introducción" class="level3">
+<h3 class="anchored" data-anchor-id="introducción">1.Introducción</h3>
+<p>La inferencia estadística tiene como objetivo extraer conclusiones sobre una población a partir de la información proporcionada por una muestra. A diferencia de la estadística descriptiva, que se limita a resumir los datos observados, la inferencia incorpora la incertidumbre asociada al muestreo.</p>
+<p>Mediante técnicas de estimación y contraste de hipótesis es posible aproximar el valor de parámetros poblacionales desconocidos y evaluar afirmaciones sobre los mismos con un determinado nivel de confianza.</p>
+<p>En esta entrada se introducen los conceptos básicos de la inferencia estadística utilizando el lenguaje de R.</p>
+</section>
+<section id="inferencia-para-una-población" class="level3">
+<h3 class="anchored" data-anchor-id="inferencia-para-una-población">2. Inferencia para una población</h3>
+<p>Para este caso se utilizará el conjunto de datos mtcars, que contiene información sobre distintos modelos de automóviles.</p>
+<p>Nos centraremos en la variable mpg, que representa el consumo de combustible.</p>
+<p>En el contexto de la inferencia estadística para una población, se considera que se dispone de una muestra aleatoria extraída de una población con un parámetro desconocido. A partir de dicha muestra se utilizan estimadores para aproximar el valor del parámetro poblacional.</p>
+<p>En este caso, se analizará la media poblacional del consumo de combustible, utilizando la media muestral como estimador.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">data</span>(mtcars)</span>
+<span id="cb1-2"></span>
+<span id="cb1-3">variable <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> mtcars<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>mpg</span>
+<span id="cb1-4"></span>
+<span id="cb1-5">n <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">length</span>(variable)</span>
+<span id="cb1-6">n</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 32</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">media_muestral <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean</span>(variable)</span>
+<span id="cb3-2">media_muestral</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.09062</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1">desv_tip <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sd</span>(variable)</span>
+<span id="cb5-2">desv_tip</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.026948</code></pre>
+</div>
+</div>
+<p>La muestra analizada está formada por 32 observaciones. La media muestral del consumo de combustible es de 20.09 , mientras que la desviación típica muestral es de 6.03.</p>
+<p>Estos valores resumen la información contenida en la muestra y nos prepara para realizar inferencias sobre la media poblacional del consumo de combustible.</p>
+<section id="intervalo-de-confianza-para-la-media-poblacional" class="level5">
+<h5 class="anchored" data-anchor-id="intervalo-de-confianza-para-la-media-poblacional"><em>Intervalo de confianza para la media poblacional</em></h5>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1">IC_media <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">t.test</span>(variable, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">conf.level =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.95</span>)</span>
+<span id="cb7-2">IC_media</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  variable
+t = 18.857, df = 31, p-value &lt; 2.2e-16
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 17.91768 22.26357
+sample estimates:
+mean of x 
+ 20.09062 </code></pre>
+</div>
+</div>
+<p>El intervalo de confianza al 95 % para la media poblacional del consumo de combustible está comprendido entre 17.92 y 22.26, esto significa que, con un nivel de confianza del 95 %, se puede afirmar que la media poblacional del consumo de combustible se encuentra dentro de dicho intervalo.</p>
+</section>
+<section id="contraste-de-hipótesis" class="level5">
+<h5 class="anchored" data-anchor-id="contraste-de-hipótesis"><em>Contraste de hipótesis</em></h5>
+<p>Para contrastar hipótesis sobre la media poblacional del consumo de combustible, se plantea el siguiente contraste bilateral:</p>
+<ul>
+<li>Hipótesis nula (H0): la media poblacional del consumo de combustible es igual a 0.</li>
+<li>Hipótesis alternativa (H1): la media poblacional del consumo de combustible es distinta de 0.</li>
+</ul>
+<p>El contraste se realiza utilizando un nivel de significación del 5 %.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1">contraste <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">t.test</span>(variable)</span>
+<span id="cb9-2">contraste</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  variable
+t = 18.857, df = 31, p-value &lt; 2.2e-16
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 17.91768 22.26357
+sample estimates:
+mean of x 
+ 20.09062 </code></pre>
+</div>
+</div>
+<p>El p-valor obtenido es prácticamente nulo y claramente inferior al nivel de significación del 5 %. Por tanto, se rechaza la hipótesis nula y se dice que existe evidencia estadística suficiente para afirmar que la media poblacional del consumo de combustible es distinta de 0.</p>
+</section>
+<section id="comparación-de-dos-poblaciones" class="level5">
+<h5 class="anchored" data-anchor-id="comparación-de-dos-poblaciones"><em>Comparación de dos poblaciones</em></h5>
+<p>En muchas situaciones resulta interesante comparar el comportamiento de una variable entre dos poblaciones distintas. En este caso, se analizará si existen diferencias estadísticamente significativas en el consumo medio de combustible entre vehículos con transmisión automática y transmisión manual.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1">mpg_auto <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> mtcars<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>mpg[mtcars<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>am <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]</span>
+<span id="cb11-2">mpg_manual <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> mtcars<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>mpg[mtcars<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>am <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]</span>
+<span id="cb11-3"></span>
+<span id="cb11-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">length</span>(mpg_auto)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 19</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">length</span>(mpg_manual)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean</span>(mpg_auto)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 17.14737</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean</span>(mpg_manual)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 24.39231</code></pre>
+</div>
+</div>
+<p>La muestra se divide en 19 vehículos con automáticos y 13 vehículos manuales. La media muestral del consumo de combustible es de 17.15 para los vehículos automáticos y de 24.39 para los vehículos manuales.</p>
+<p>A nivel descriptivo, se observa que los vehículos manuales presentan un consumo medio menor que los vehículos automáticos. No obstante, para determinar si esta diferencia es estadísticamente significativa es necesario realizar un contraste de hipótesis.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1">comparacion <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">t.test</span>(mpg_auto, mpg_manual, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">var.equal =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>)</span>
+<span id="cb19-2">comparacion</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  mpg_auto and mpg_manual
+t = -3.7671, df = 18.332, p-value = 0.001374
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -11.280194  -3.209684
+sample estimates:
+mean of x mean of y 
+ 17.14737  24.39231 </code></pre>
+</div>
+</div>
+<p>El contraste de medias nos da un p-valor inferior al nivel de significación del 5 %, por lo que se rechaza la hipótesis nula de igualdad de medias.</p>
+<p>El intervalo de confianza al 95 % para la diferencia de medias se encuentra entre −11.28 y −3.21, lo que indica que el consumo medio de los vehículos manuales son significativamente menores que el de los vehículos automáticos.</p>
+<p>La inferencia estadística es una herramienta fundamental para extraer conclusiones sobre una población a partir de la información muestral, incorporando la incertidumbre al proceso. En esta entrada se han vistolos principales conceptos de la inferencia para una población, incluyendo los intervalos de confianza y los contrastes de hipótesis.</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>Estadística</category>
+  <category>Inferencia</category>
+  <category>R</category>
+  <guid>https://your-website-url.example.com/posts/inferencia_estadistica/</guid>
+  <pubDate>Thu, 29 Jan 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://your-website-url.example.com/posts/inferencia_estadistica/featured.png" medium="image" type="image/png" height="96" width="144"/>
+</item>
+<item>
+  <title>Regresión lineal múltiple</title>
+  <dc:creator>José Luis Heredia Maya</dc:creator>
+  <link>https://your-website-url.example.com/posts/regresion_lineal_multiple/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="introducción" class="level3">
+<h3 class="anchored" data-anchor-id="introducción">1.Introducción</h3>
+<p>Para ver los distintos enfoques de la regresión lineal, se emplea el conjunto de datos mtcars, incluido por defecto en R. Este conjunto de datos recoge información técnica sobre distintos modelos de automóviles.</p>
+<p>En particular, se analizará el consumo de combustible de los vehículos, y su relación con distintas características del automóvil, en este caso, el número de cilindros. Estas variables permiten ilustrar de forma clara la aplicación de modelos de regresión y la comparación entre distintas especificaciones.</p>
+</section>
+<section id="datos" class="level3">
+<h3 class="anchored" data-anchor-id="datos">2. Datos</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rm</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">list =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ls</span>())</span>
+<span id="cb1-2"></span>
+<span id="cb1-3">suma <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span>(x) {</span>
+<span id="cb1-4">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">return</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sum</span>(x, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">na.rm =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>))</span>
+<span id="cb1-5">}</span>
+<span id="cb1-6"></span>
+<span id="cb1-7"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">data</span>(mtcars)</span>
+<span id="cb1-8">datos <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> mtcars</span>
+<span id="cb1-9"></span>
+<span id="cb1-10">consumo <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> datos<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>mpg</span>
+<span id="cb1-11"></span>
+<span id="cb1-12">cilindros <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> datos<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>cyl</span>
+<span id="cb1-13"></span>
+<span id="cb1-14">consumo_medio <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sort</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">tapply</span>(consumo, cilindros, mean))</span>
+<span id="cb1-15">consumo_medio</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       8        6        4 
+15.10000 19.74286 26.66364 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">plot</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">names</span>(consumo_medio), consumo_medio,</span>
+<span id="cb3-2">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">type =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"b"</span>,</span>
+<span id="cb3-3">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">col =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"blue"</span>,</span>
+<span id="cb3-4">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">lwd =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>,</span>
+<span id="cb3-5">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">xlab =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Número de cilindros"</span>,</span>
+<span id="cb3-6">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ylab =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Consumo medio (mpg)"</span>,</span>
+<span id="cb3-7">     <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">main =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Consumo medio de combustible según el número de cilindros"</span>)</span></code></pre></div></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://your-website-url.example.com/posts/regresion_lineal_multiple/index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>La representación gráfica del consumo medio de combustible en función del número de cilindros muestra una relación claramente decreciente. A medida que aumenta el número de cilindros del vehículo, el consumo medio disminuye. Esto nos lleva a pensar que existe una relación negativa entre ambas variables.</p>
+<p>Ahora se plantea un modelo de regresión lineal simple que permite analizar la relación entre el consumo medio de combustible y el número de cilindros del vehículo.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1">reg1 <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">lm</span>(consumo_medio <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">~</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as.numeric</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">names</span>(consumo_medio)))</span>
+<span id="cb4-2"></span>
+<span id="cb4-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">summary</span>(reg1)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = consumo_medio ~ as.numeric(names(consumo_medio)))
+
+Residuals:
+      8       6       4 
+ 0.3797 -0.7593  0.3797 
+
+Coefficients:
+                                 Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)                       37.8476     2.0445  18.512   0.0344 *
+as.numeric(names(consumo_medio))  -2.8909     0.3288  -8.793   0.0721 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.93 on 1 degrees of freedom
+Multiple R-squared:  0.9872,    Adjusted R-squared:  0.9745 
+F-statistic: 77.31 on 1 and 1 DF,  p-value: 0.07209</code></pre>
+</div>
+</div>
+<p>El modelo de regresión lineal simple estimado presenta una pendiente negativa, lo que indica que el consumo medio de combustible disminuye a medida que aumenta el número de cilindros del vehículo. En concreto, el modelo sugiere que un incremento de un cilindro se asocia con una reducción aproximada de 2.9 unidades en el consumo medio.</p>
+<p>El coeficiente de determinación es elevado, lo que indica un buen ajuste del modelo a los datos agregados.</p>
+<p>El modelo de regresión lineal simple permite analizar la relación entre el consumo de combustible y una única variable explicativa. Sin embargo, en muchos contextos resulta más adecuado considerar simultáneamente varios factores que pueden influir sobre la variable de interés.</p>
+<p>Ahora planteamos un modelo de regresión lineal múltiple en el que el consumo de combustible se explica en función del número de cilindros y del peso del vehículo.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1">reg2 <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">lm</span>(mpg <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">~</span> cyl <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> wt, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">data =</span> mtcars)</span>
+<span id="cb6-2"></span>
+<span id="cb6-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">summary</span>(reg2)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ cyl + wt, data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.2893 -1.5512 -0.4684  1.5743  6.1004 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  39.6863     1.7150  23.141  &lt; 2e-16 ***
+cyl          -1.5078     0.4147  -3.636 0.001064 ** 
+wt           -3.1910     0.7569  -4.216 0.000222 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.568 on 29 degrees of freedom
+Multiple R-squared:  0.8302,    Adjusted R-squared:  0.8185 
+F-statistic: 70.91 on 2 and 29 DF,  p-value: 6.809e-12</code></pre>
+</div>
+</div>
+<p>El modelo de regresión lineal múltiple muestra que tanto el número de cilindros como el peso del vehículo influyen de forma significativa sobre el consumo de combustible. Manteniendo constante el peso del vehículo, un aumento en el número de cilindros se asocia con una reducción de 1.5 unindades en el consumo.</p>
+<p>Por otraparte, manteniendo constante el número de cilindros, un incremento en el peso del vehículo se asocia con una disminución aproximada de 3.2 unidades. Ambos coeficientes resultan estadísticamente significativos.</p>
+<p>El coeficiente de determinación indica que el modelo explica alrededor del 83 % de la variabilidad observada en el consumo de combustible, lo que sugiere un buen ajuste del modelo a los datos.</p>
+<p>La regresión lineal múltiple permite analizar de forma conjunta el efecto de distintas variables explicativas sobre una variable de interés, proporcionando una visión más completa del fenómeno analizado.</p>
+<p>En este ejemplo se ha mostrado cómo el consumo de combustible de los vehículos depende de características como el número de cilindros y el peso, utilizando modelos de regresión lineal estimados en R y siguiendo el enfoque desarrollado en clase.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>Estadística</category>
+  <category>Regresión</category>
+  <category>R</category>
+  <guid>https://your-website-url.example.com/posts/regresion_lineal_multiple/</guid>
+  <pubDate>Thu, 29 Jan 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://your-website-url.example.com/posts/regresion_lineal_multiple/featured.png" medium="image" type="image/png" height="96" width="144"/>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,10 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/estadistica_descriptiva/index.html",
+      "/posts/inferencia_estadistica/index.html",
+      "/posts/regresion_lineal_multiple/index.html"
+    ]
+  }
+]
